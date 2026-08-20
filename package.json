@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "箭牌卫浴 北部战区 数据宝",
   "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=14"
+  },
   "dependencies": {
     "@vercel/kv": "^1.0.1"
   }
