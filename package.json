@@ -1,0 +1,9 @@
+{
+  "name": "arrow-north-dashboard",
+  "version": "1.0.0",
+  "description": "箭牌卫浴 北部战区 数据宝",
+  "private": true,
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
