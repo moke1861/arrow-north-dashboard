@@ -21,8 +21,8 @@
   --total-bg:#FFF8E1;--total-border:#FFB300;
   --hover:#E8F0FE;--shadow:0 2px 8px rgba(13,71,161,.06);--shadow-lg:0 4px 16px rgba(13,71,161,.12);
   --radius:10px;--radius-sm:6px;
-  --th-dim:#263238;--th-monthly:#0D47A1;--th-monthly-h-1:#1565C0;--th-monthly-h-2:#0D47A1;
-  --th-yearly:#E65100;--th-yearly-h-1:#FF8F00;--th-yearly-h-2:#E65100;
+  --th-dim:#37474F;--th-monthly:#1565C0;--th-monthly-h-1:#1976D2;--th-monthly-h-2:#1565C0;
+  --th-yearly:#F57C00;--th-yearly-h-1:#FB8C00;--th-yearly-h-2:#F57C00;
   --toggle-bg:rgba(255,255,255,.15);--toggle-border:rgba(255,255,255,.3);
   --accent-glow:0 0 12px rgba(21,101,192,.2);
 }
@@ -36,8 +36,8 @@
   --brand-light:#E3F2FD;--header-grad:linear-gradient(135deg,#0D47A1 0%,#002171 50%,#001A4D 100%);
   --total-bg:#FFF8E1;--total-border:#FFB300;
   --hover:#E8F0FE;--shadow:0 2px 8px rgba(13,71,161,.08);--shadow-lg:0 4px 16px rgba(13,71,161,.14);
-  --th-dim:#263238;--th-monthly:#0D47A1;--th-monthly-h-1:#1565C0;--th-monthly-h-2:#0D47A1;
-  --th-yearly:#E65100;--th-yearly-h-1:#FF8F00;--th-yearly-h-2:#E65100;
+  --th-dim:#37474F;--th-monthly:#1565C0;--th-monthly-h-1:#1976D2;--th-monthly-h-2:#1565C0;
+  --th-yearly:#F57C00;--th-yearly-h-1:#FB8C00;--th-yearly-h-2:#F57C00;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -269,6 +269,39 @@ td.neg{color:var(--red)!important;font-weight:700}
 .auth-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(21,101,192,.3)}
 .auth-btn:active{transform:translateY(0)}
 .auth-error{display:none;color:var(--red);font-size:13px;margin-top:12px}
+
+/* ===== 军令状主题 ===== */
+@keyframes baodi-pulse{0%,100%{box-shadow:0 0 24px rgba(255,193,7,.5),inset 0 0 12px rgba(255,193,7,.2)}50%{box-shadow:0 0 36px rgba(255,193,7,.8),inset 0 0 20px rgba(255,193,7,.35)}}
+@keyframes baodi-flame{0%,100%{opacity:.6}50%{opacity:1}}
+@keyframes baodi-flicker{0%,100%{opacity:.3;transform:scaleY(1)}25%{opacity:.5;transform:scaleY(1.1)}50%{opacity:.4;transform:scaleY(.95)}75%{opacity:.6;transform:scaleY(1.05)}}
+.baodi-hero{display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 16px;background:linear-gradient(90deg,#8B0000 0%,#B71C1C 20%,#D32F2F 50%,#E65100 80%,#FF6F00 100%);border-radius:10px;margin-bottom:16px;position:relative;overflow:hidden;border:3px solid #FFC107}
+.baodi-hero::before{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.15),transparent 40%),radial-gradient(circle at 70% 50%,rgba(255,87,34,.3),transparent 35%);pointer-events:none}
+.baodi-hero::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle at 10% 100%,rgba(255,193,7,.15),transparent 8px),radial-gradient(circle at 25% 90%,rgba(255,152,0,.12),transparent 10px),radial-gradient(circle at 45% 100%,rgba(255,87,34,.1),transparent 9px),radial-gradient(circle at 65% 95%,rgba(255,193,7,.13),transparent 7px),radial-gradient(circle at 85% 100%,rgba(255,152,0,.15),transparent 11px),radial-gradient(circle at 5% 80%,rgba(255,87,34,.08),transparent 6px),radial-gradient(circle at 95% 85%,rgba(255,193,7,.1),transparent 8px);pointer-events:none}
+.baodi-seal{flex-shrink:0;width:30px;height:30px;border:2px solid #FFC107;border-radius:50%;color:#FFC107;font-size:13px;font-weight:900;line-height:26px;text-align:center;animation:baodi-pulse 2s ease-in-out infinite}
+.baodi-title{font-size:17px;font-weight:900;color:#fff;letter-spacing:6px;text-shadow:0 0 16px rgba(255,193,7,.6),0 2px 4px rgba(0,0,0,.4);padding-left:4px}
+.baodi-sub{font-size:11px;color:rgba(255,255,255,.8);letter-spacing:1px;font-weight:500;white-space:nowrap}
+.baodi-hero-info{font-size:11px;color:rgba(255,255,255,.85);white-space:nowrap}
+.baodi-hero-info b{color:#FFC107;font-weight:800}
+.baodi-info-bar{display:flex;justify-content:center;gap:32px;padding:14px 20px;background:linear-gradient(90deg,rgba(211,47,47,.08),rgba(255,87,34,.12),rgba(255,143,0,.08));border-radius:8px;margin-bottom:16px;font-size:14px;color:#37474F;border:1px solid rgba(255,87,34,.25)}
+.baodi-info-bar b{color:#D32F2F;font-weight:800;font-size:15px}
+.baodi-section{background:#fff;border-radius:10px;border:1px solid rgba(255,87,34,.2);overflow:hidden;margin-bottom:16px;box-shadow:0 2px 12px rgba(211,47,47,.08)}
+.baodi-section-title{padding:14px 16px;background:linear-gradient(90deg,#8B0000,#C62828 50%,#D84315);color:#fff;font-size:16px;font-weight:700;letter-spacing:3px;border-bottom:3px solid #FF8F00;display:flex;align-items:center;gap:8px}
+.baodi-section-title .dot{width:8px;height:8px;border-radius:50%;background:#FFC107;box-shadow:0 0 8px rgba(255,193,7,.6)}
+.baodi-table{width:100%;border-collapse:collapse;font-size:13px}
+.baodi-table thead th{background:linear-gradient(180deg,#FFF3E0,#FFE0B2);color:#BF360C;font-weight:800;padding:10px 6px;text-align:center;border-bottom:2px solid #FF6F00;white-space:nowrap;font-size:12px}
+.baodi-table tbody td{text-align:center;padding:9px 6px;border-bottom:1px solid #F5E6E0}
+.baodi-table tbody tr:hover{background:#FFF8E1}
+.baodi-table .dim{text-align:left;font-weight:700;color:#263238;padding-left:14px}
+.baodi-table .total-row{background:linear-gradient(90deg,rgba(211,47,47,.08),rgba(255,143,0,.1));font-weight:800;border-top:2px solid #FF6F00}
+.baodi-table .total-row td{border-bottom:none}
+.baodi-table .total-row .dim{color:#B71C1C;font-size:14px}
+.baodi-gap-pos{color:#D32F2F;font-weight:800}
+.baodi-gap-neg{color:#2E7D32;font-weight:800}
+.baodi-daily-need{color:#E65100;font-weight:800}
+.baodi-progress{width:60px;height:6px;background:#FFEBEE;border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:4px}
+.baodi-progress-bar{height:100%;border-radius:3px;transition:width .3s}
+.baodi-flame{display:inline-block;width:6px;height:6px;border-radius:50%;background:#FF6F00;animation:baodi-flame 1.2s ease-in-out infinite;vertical-align:middle;margin-right:3px}
+.baodi-divider{flex-shrink:0;width:1px;height:18px;background:linear-gradient(180deg,transparent,rgba(255,193,7,.5),transparent)}
 </style>
 </head>
 <body>
@@ -278,7 +311,7 @@ td.neg{color:var(--red)!important;font-weight:700}
   <div class="auth-box">
     <div class="auth-logo">箭牌卫浴 · 北部战区</div>
     <div class="auth-title">数据宝</div>
-    <div class="auth-subtitle">北部战区作战指挥中心 · 请输入口令</div>
+    <div class="auth-subtitle">北部战区 · 请输入口令</div>
     <input type="password" id="authPassword" class="auth-input" placeholder="请输入密码" onkeydown="if(event.key==='Enter')checkAuth()">
     <button class="auth-btn" onclick="checkAuth()">进 入</button>
     <div id="authError" class="auth-error"></div>
@@ -287,7 +320,7 @@ td.neg{color:var(--red)!important;font-weight:700}
 
 <div id="appMain" style="display:none">
 <div class="app-header">
-  <h1>数据宝 · 北部战区作战指挥 <span class="header-date" id="headerDate"></span></h1>
+  <h1>数据宝 · 北部战区 <span class="header-date" id="headerDate"></span></h1>
   <div class="header-right">
     <button class="btn btn-theme" onclick="toggleTheme()" id="themeBtn" title="切换日间/夜间模式"></button>
     <button class="btn btn-upload" onclick="document.getElementById('fileInput').click()">上传数据</button>
@@ -299,8 +332,9 @@ td.neg{color:var(--red)!important;font-weight:700}
 <div class="tab-bar" id="tabBar">
   <div class="tab active" data-view="overview" onclick="switchView('overview')">战区总览</div>
   <div class="tab" data-view="ops" onclick="switchView('ops')">运营中心</div>
-  <div class="tab" data-view="channel" onclick="switchView('channel')">渠道战线</div>
+  <div class="tab" data-view="channel" onclick="switchView('channel')">渠道</div>
   <div class="tab" data-view="dealer" onclick="switchView('dealer')">经销商</div>
+  <div class="tab" data-view="baodi" onclick="switchView('baodi')">军令状</div>
 </div>
 
 <div class="content" id="content"></div>
@@ -379,6 +413,7 @@ var ALL_OPS=[];
 var ALL_AREAS=[];
 var DEALERS=[];
 var snapshotDate="2026-07-19";
+var cloudUploadedAt="";
 var sortState={};
 
 // ===== Utils =====
@@ -393,31 +428,32 @@ function aggregate(rows,dim){
   var g={};
   rows.forEach(function(r){
     var k=r[dim]||"(未知)";
-    if(!g[k])g[k]={已发货:0,去年同期:0,本年发货:0,去年发货:0,count:0,大区:r["大区"]||"",渠道:r["渠道"]||"",运营中心:r["运营中心"]||""};
-    g[k].已发货+=r["已发货"]||0;g[k].去年同期+=r["去年同期"]||0;g[k].本年发货+=r["本年发货"]||0;g[k].去年发货+=r["去年发货"]||0;g[k].count++;
+    if(!g[k])g[k]={已发货:0,开单未提货:0,去年同期:0,本年发货:0,去年发货:0,count:0,大区:r["大区"]||"",渠道:r["渠道"]||"",运营中心:r["运营中心"]||""};
+    g[k].已发货+=r["已发货"]||0;g[k].开单未提货+=r["开单未提货"]||0;g[k].去年同期+=r["去年同期"]||0;g[k].本年发货+=r["本年发货"]||0;g[k].去年发货+=r["去年发货"]||0;g[k].count++;
   });
   var out=[];
   Object.keys(g).forEach(function(k){
     var v=g[k],mGap=v.已发货-v.去年同期,yGap=v.本年发货-v.去年发货;
     out.push({name:k,大区:v.大区,渠道:v.渠道,运营中心:v.运营中心,count:v.count,
-      mShipped:+v.已发货.toFixed(1),mLy:+v.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:v.去年同期?mGap/v.去年同期:0,
+      mShipped:+v.已发货.toFixed(1),mUnshipped:+v.开单未提货.toFixed(1),mLy:+v.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:v.去年同期?mGap/v.去年同期:0,
       yShipped:+v.本年发货.toFixed(1),yLy:+v.去年发货.toFixed(1),yGap:+yGap.toFixed(1),yRate:v.去年发货?yGap/v.去年发货:0});
   });
   return out;
 }
 
 function totalRow(rows){
-  var s={已发货:0,去年同期:0,本年发货:0,去年发货:0};
-  rows.forEach(function(r){s.已发货+=r["已发货"]||0;s.去年同期+=r["去年同期"]||0;s.本年发货+=r["本年发货"]||0;s.去年发货+=r["去年发货"]||0});
+  var s={已发货:0,开单未提货:0,去年同期:0,本年发货:0,去年发货:0};
+  rows.forEach(function(r){s.已发货+=r["已发货"]||0;s.开单未提货+=r["开单未提货"]||0;s.去年同期+=r["去年同期"]||0;s.本年发货+=r["本年发货"]||0;s.去年发货+=r["去年发货"]||0});
   var mGap=s.已发货-s.去年同期,yGap=s.本年发货-s.去年发货;
-  return{mShipped:+s.已发货.toFixed(1),mLy:+s.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:s.去年同期?mGap/s.去年同期:0,
+  return{mShipped:+s.已发货.toFixed(1),mUnshipped:+s.开单未提货.toFixed(1),mLy:+s.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:s.去年同期?mGap/s.去年同期:0,
     yShipped:+s.本年发货.toFixed(1),yLy:+s.去年发货.toFixed(1),yGap:+yGap.toFixed(1),yRate:s.去年发货?yGap/s.去年发货:0};
 }
 
 // ===== Table Builder =====
-function getVisibleCols(dimLabel,showOps,showChannel){
+function getVisibleCols(dimLabel,showOps,showChannel,showRegion){
   var cols=[{field:"name",label:dimLabel,numeric:false,sortKey:"name"}];
   if(showOps)cols.push({field:"运营中心",label:"运营中心",numeric:false,sortKey:"运营中心"});
+  if(showRegion)cols.push({field:"区域",label:"区域",numeric:false,sortKey:"区域"});
   if(showChannel)cols.push({field:"渠道",label:"渠道",numeric:false,sortKey:"渠道"});
   cols.push({field:"mShipped",label:"已发货",numeric:true,sortKey:"mShipped",group:"当月发货(万)"});
   cols.push({field:"mLy",label:"同期",numeric:true,sortKey:"mLy",group:"当月发货(万)"});
@@ -469,10 +505,10 @@ function renderTableRows(rows,cols,baseColSpan,totalRowData){
   return html;
 }
 
-function buildTable(rows,dimLabel,showOps,showChannel,totalRowData){
+function buildTable(rows,dimLabel,showOps,showChannel,totalRowData,showRegion){
   var tableId="tbl_"+(++tableSeq);
-  tableSources[tableId]={rows:rows,dimLabel:dimLabel,showOps:showOps,showChannel:showChannel,totalRowData:totalRowData||null};
-  var cols=getVisibleCols(dimLabel,showOps,showChannel);
+  tableSources[tableId]={rows:rows,dimLabel:dimLabel,showOps:showOps,showChannel:showChannel,showRegion:showRegion||false,totalRowData:totalRowData||null};
+  var cols=getVisibleCols(dimLabel,showOps,showChannel,showRegion);
   var baseColSpan=cols.filter(function(c){return!c.group}).length;
   var html='<div class="data-table-wrap"><table class="data-table" id="'+tableId+'"><thead>';
   html+='<tr>';
@@ -494,8 +530,8 @@ function buildTable(rows,dimLabel,showOps,showChannel,totalRowData){
   return html;
 }
 
-function buildTableWithSource(rows,dimLabel,showOps,showChannel,totalRowData){
-  return buildTable(rows,dimLabel,showOps,showChannel,totalRowData);
+function buildTableWithSource(rows,dimLabel,showOps,showChannel,totalRowData,showRegion){
+  return buildTable(rows,dimLabel,showOps,showChannel,totalRowData,showRegion);
 }
 
 function sortByCol(tableId,colKey){
@@ -518,7 +554,7 @@ function sortByCol(tableId,colKey){
     if(typeof av==="number"&&typeof bv==="number"){return state.dir==="asc"?av-bv:bv-av;}
     return state.dir==="asc"?String(av||"").localeCompare(String(bv||"")):String(bv||"").localeCompare(String(av||""));
   });
-  var cols=getVisibleCols(src.dimLabel,src.showOps,src.showChannel);
+  var cols=getVisibleCols(src.dimLabel,src.showOps,src.showChannel,src.showRegion);
   var baseColSpan=cols.filter(function(c){return!c.group}).length;
   document.getElementById(tableId+"_body").innerHTML=renderTableRows(sorted,cols,baseColSpan,src.totalRowData);
 }
@@ -587,7 +623,7 @@ function renderOverviewView(){
 
   // By channel
   var byCh=aggregate(opsData.filter(function(r){return MAIN_CHANNELS.indexOf(r["渠道"])>=0}),"渠道").sort(function(a,b){return b.mShipped-a.mShipped});
-  html+='<div class="section-title">分渠道战线数据</div>';
+  html+='<div class="section-title">分渠道数据</div>';
   html+=buildTableWithSource(byCh,"渠道",false,false,tot);
 
   document.getElementById("content").innerHTML=html;
@@ -608,14 +644,65 @@ function selectOpsBtn(btn,name){
   var dataSrc=getOpsData();
   var rows=dataSrc.filter(function(r){return r["名称"]===name||r["运营中心"]===name});
   if(rows.length===0)return;
-  var tot=totalRow(rows),r0=rows[0]||{};
+  var tot=totalRow(rows);
   var html='<div class="entity-card"><h2>'+name+'</h2><div class="entity-meta">'+
     '<span class="tag">大区: <b>'+REGION_NAME+'</b></span>'+
     '<span class="tag">行数: <b>'+rows.length+'</b></span></div></div>';
   html+=buildStatsCards(tot);
+
+  // 1. By channel (运中数据)
   var byCh=aggregate(rows,"渠道").sort(function(a,b){return b.mShipped-a.mShipped});
-  html+='<div class="section-title">分渠道发货数据</div>';
+  html+='<div class="section-title">运营中心分渠道发货数据</div>';
   html+=buildTableWithSource(byCh,"渠道",false,false);
+
+  // 2. By sales rep (销售代表数据)
+  var dealers=ALL_DATA.filter(function(r){return r["运营中心"]===name&&r["名称"]!=="合计"&&r["编码"]});
+  if(dealers.length>0){
+    var repMap={};
+    dealers.forEach(function(r){
+      var rep=r["销售代表"]||"(未分配)";
+      if(!repMap[rep])repMap[rep]={已发货:0,开单未提货:0,去年同期:0,本年发货:0,去年发货:0,count:0};
+      repMap[rep].已发货+=r["已发货"]||0;
+      repMap[rep].开单未提货+=r["开单未提货"]||0;
+      repMap[rep].去年同期+=r["去年同期"]||0;
+      repMap[rep].本年发货+=r["本年发货"]||0;
+      repMap[rep].去年发货+=r["去年发货"]||0;
+      repMap[rep].count++;
+    });
+    var repRows=Object.keys(repMap).map(function(k){
+      var v=repMap[k];var mGap=v.已发货-v.去年同期,yGap=v.本年发货-v.去年发货;
+      return{name:k,运营中心:name,销售代表:k,count:v.count,
+        mShipped:+v.已发货.toFixed(1),mUnshipped:+v.开单未提货.toFixed(1),mLy:+v.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:v.去年同期?mGap/v.去年同期:0,
+        yShipped:+v.本年发货.toFixed(1),yLy:+v.去年发货.toFixed(1),yGap:+yGap.toFixed(1),yRate:v.去年发货?yGap/v.去年发货:0};
+    }).sort(function(a,b){return b.mShipped-a.mShipped});
+    html+='<div class="section-title">销售代表发货数据（'+repRows.length+'名）</div>';
+    html+=buildTableWithSource(repRows,"销售代表",false,false,null,false);
+  }
+
+  // 3. Dealer detail (经销商全渠道汇总数据)
+  if(dealers.length>0){
+    var dMap={};
+    dealers.forEach(function(r){
+      var dn=r["名称"];
+      if(!dMap[dn])dMap[dn]={名称:dn,运营中心:r["运营中心"],销售代表:r["销售代表"]||"",已发货:0,开单未提货:0,去年同期:0,本年发货:0,去年发货:0,渠道数:0};
+      dMap[dn].已发货+=r["已发货"]||0;
+      dMap[dn].开单未提货+=r["开单未提货"]||0;
+      dMap[dn].去年同期+=r["去年同期"]||0;
+      dMap[dn].本年发货+=r["本年发货"]||0;
+      dMap[dn].去年发货+=r["去年发货"]||0;
+      dMap[dn].渠道数++;
+    });
+    var dealerRows=Object.keys(dMap).map(function(k){
+      var v=dMap[k];var mGap=v.已发货-v.去年同期,yGap=v.本年发货-v.去年发货;
+      return{name:v.名称,运营中心:v.运营中心,销售代表:v.销售代表,渠道数:v.渠道数,
+        mShipped:+v.已发货.toFixed(1),mUnshipped:+v.开单未提货.toFixed(1),mLy:+v.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:v.去年同期?mGap/v.去年同期:0,
+        yShipped:+v.本年发货.toFixed(1),yLy:+v.去年发货.toFixed(1),yGap:+yGap.toFixed(1),yRate:v.去年发货?yGap/v.去年发货:0};
+    }).sort(function(a,b){var r=(a["销售代表"]||"").localeCompare(b["销售代表"]||"");return r!==0?r:b.mShipped-a.mShipped});
+    var uniqueCount=Object.keys(dMap).length;
+    html+='<div class="section-title">所辖经销商全渠道汇总（'+uniqueCount+'个）</div>';
+    html+=buildTableWithSource(dealerRows,"经销商",false,false,null,false);
+  }
+
   document.getElementById("opsResult").innerHTML=html;
 }
 
@@ -654,36 +741,48 @@ function selectChannelBtn(btn,ch){
   var html='<div class="entity-card"><h2>'+ch+'渠道</h2><div class="entity-meta"><span class="tag">战区: <b>北部战区</b></span></div></div>';
   html+=buildStatsCards(tot);
 
-  // By ops center
+  // 1. By ops center (运中数据)
   var byOps=aggregate(rows,"运营中心").sort(function(a,b){return b.mShipped-a.mShipped});
   html+='<div class="section-title">'+ch+'渠道 各运营中心发货数据</div>';
   html+=buildTableWithSource(byOps,"运营中心",false,false);
 
-  // Sub-groups if applicable
-  if(CHANNEL_SUB_GROUPS[ch]){
-    var sgRows=[];
-    Object.keys(CHANNEL_SUB_GROUPS[ch]).forEach(function(sg){
-      var rule=CHANNEL_SUB_GROUPS[ch][sg];
-      var sub=rows.filter(function(r){
-        if(rule.ops&&(rule.ops.indexOf(r["运营中心"])>=0))return true;
-        if(rule.regions&&rule.regions.indexOf(r["大区"])>=0)return true;
-        return false;
-      });
-      if(sub.length>0){
-        var t=totalRow(sub);
-        sgRows.push({name:sg,大区:REGION_NAME,渠道:sg,mShipped:t.mShipped,mLy:t.mLy,mGap:t.mGap,mRate:t.mRate,yShipped:t.yShipped,yLy:t.yLy,yGap:t.yGap,yRate:t.yRate});
-      }
+  // 2. By sales rep (销售代表数据)
+  var allDealers=ALL_DATA.filter(function(r){return r["渠道"]===ch&&r["名称"]!=="合计"&&r["编码"]&&r["大区"]===REGION_NAME});
+  if(allDealers.length>0){
+    var repMap={};
+    allDealers.forEach(function(r){
+      var rep=r["销售代表"]||"(未分配)";
+      var oc=r["运营中心"]||"";
+      var key=rep+"|"+oc;
+      if(!repMap[key])repMap[key]={销售代表:rep,运营中心:oc,已发货:0,开单未提货:0,去年同期:0,本年发货:0,去年发货:0,count:0};
+      repMap[key].已发货+=r["已发货"]||0;
+      repMap[key].开单未提货+=r["开单未提货"]||0;
+      repMap[key].去年同期+=r["去年同期"]||0;
+      repMap[key].本年发货+=r["本年发货"]||0;
+      repMap[key].去年发货+=r["去年发货"]||0;
+      repMap[key].count++;
     });
-    if(sgRows.length>0){
-      html+='<div class="section-title">'+ch+'渠道 各分组发货数据</div>';
-      html+=buildTableWithSource(sgRows,"分组",false,false);
-    }
+    var repRows=Object.keys(repMap).map(function(k){
+      var v=repMap[k];var mGap=v.已发货-v.去年同期,yGap=v.本年发货-v.去年发货;
+      return{name:v.销售代表,运营中心:v.运营中心,销售代表:v.销售代表,count:v.count,
+        mShipped:+v.已发货.toFixed(1),mUnshipped:+v.开单未提货.toFixed(1),mLy:+v.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:v.去年同期?mGap/v.去年同期:0,
+        yShipped:+v.本年发货.toFixed(1),yLy:+v.去年发货.toFixed(1),yGap:+yGap.toFixed(1),yRate:v.去年发货?yGap/v.去年发货:0};
+    }).sort(function(a,b){var r=(a["运营中心"]||"").localeCompare(b["运营中心"]||"");return r!==0?r:b.mShipped-a.mShipped});
+    html+='<div class="section-title">'+ch+'渠道 销售代表发货数据（'+repRows.length+'名）</div>';
+    html+=buildTableWithSource(repRows,"销售代表",true,false,null,false);
   }
 
-  // By region summary
-  var byRegion=aggregate(rows,"大区");
-  html+='<div class="section-title">'+ch+'渠道 分大区汇总</div>';
-  html+=buildTableWithSource(byRegion,"大区",false,false);
+  // 3. Dealer detail (经销商数据)
+  if(allDealers.length>0){
+    var dealerRows=allDealers.map(function(r){
+      var mGap=(r["已发货"]||0)-(r["去年同期"]||0),yGap=(r["本年发货"]||0)-(r["去年发货"]||0);
+      return{name:r["名称"],运营中心:r["运营中心"],销售代表:r["销售代表"]||"",
+        mShipped:+(r["已发货"]||0).toFixed(1),mUnshipped:+(r["开单未提货"]||0).toFixed(1),mLy:+(r["去年同期"]||0).toFixed(1),mGap:+mGap.toFixed(1),mRate:r["去年同期"]?mGap/r["去年同期"]:0,
+        yShipped:+(r["本年发货"]||0).toFixed(1),yLy:+(r["去年发货"]||0).toFixed(1),yGap:+yGap.toFixed(1),yRate:r["去年发货"]?yGap/r["去年发货"]:0};
+    }).sort(function(a,b){var r=(a["运营中心"]||"").localeCompare(b["运营中心"]||"");return r!==0?r:b.mShipped-a.mShipped});
+    html+='<div class="section-title">'+ch+'渠道 经销商明细（'+allDealers.length+'个）</div>';
+    html+=buildTableWithSource(dealerRows,"经销商",true,false,null,false);
+  }
 
   document.getElementById("channelResult").innerHTML=html;
 }
@@ -694,6 +793,29 @@ function renderDealerView(){
   html+='<div class="search-results" id="searchResults"></div></div>';
   html+='</div>';
   html+='<div id="dealerResult"><div class="placeholder-card"><div class="icon">\u2694\uFE0F</div><p>请输入经销商名称开始查询</p></div></div>';
+
+  // Top30 dealers (fixed list)
+  var TOP30=["北京乐华","佛山华耐","河南大通","哈尔滨群利","沈阳东盛","石家庄箭兴","太原远华","邯郸杰超","廊坊箭牌","邢台伟业","驻马店青松","信阳箭牌","周口箭牌","南阳箭牌","临汾方瑜","唐山华耐","呼和浩特远东美居","长春万隆","山西运城","大连福盈门","洛阳鑫大","漯河强大","天津尔迪雅TY","河南安阳","保定程通","赤峰东耀","商丘顶美","大同南北","长治恒祥","包头万华"];
+  var allDealers=getDealerData().filter(function(r){return r["名称"]!=="合计"&&r["编码"]&&!isExcludedDealer(r["名称"])});
+  var dMap={};
+  allDealers.forEach(function(r){
+    var dn=r["名称"];
+    if(!dMap[dn])dMap[dn]={名称:dn,运营中心:r["运营中心"],销售代表:r["销售代表"]||"",已发货:0,去年同期:0,本年发货:0,去年发货:0};
+    dMap[dn].已发货+=r["已发货"]||0;
+    dMap[dn].去年同期+=r["去年同期"]||0;
+    dMap[dn].本年发货+=r["本年发货"]||0;
+    dMap[dn].去年发货+=r["去年发货"]||0;
+  });
+  var topRows=TOP30.map(function(nm){
+    var v=dMap[nm]||{名称:nm,运营中心:"-",销售代表:"-",已发货:0,去年同期:0,本年发货:0,去年发货:0};
+    var mGap=v.已发货-v.去年同期,yGap=v.本年发货-v.去年发货;
+    return{name:v.名称,运营中心:v.运营中心,销售代表:v.销售代表,
+      mShipped:+v.已发货.toFixed(1),mLy:+v.去年同期.toFixed(1),mGap:+mGap.toFixed(1),mRate:v.去年同期?mGap/v.去年同期:0,
+      yShipped:+v.本年发货.toFixed(1),yLy:+v.去年发货.toFixed(1),yGap:+yGap.toFixed(1),yRate:v.去年发货?yGap/v.去年发货:0};
+  });
+  html+='<div class="section-title">北部战区 Top30 经销商（当月已发货）</div>';
+  html+=buildTableWithSource(topRows,"经销商",true,false,null,false);
+
   document.getElementById("content").innerHTML=html;
 }
 
@@ -756,6 +878,193 @@ function showDealerDetail(name){
   document.getElementById("dealerResult").innerHTML=html;
 }
 
+// ===== 8-12月保底任务数据 =====
+var BAODI_OPS=[{"运营中心":"河北","total":7021.3,"aug":1073.2,"sep":1514.3,"oct":1259.3,"nov":1322.2,"dec":1852.3},{"运营中心":"河南","total":10576.4,"aug":1966.4,"sep":2213.0,"oct":1940.7,"nov":2185.5,"dec":2270.8},{"运营中心":"黑吉","total":3525.0,"aug":490.7,"sep":670.4,"oct":686.5,"nov":632.1,"dec":1045.4},{"运营中心":"京津","total":9299.7,"aug":1812.5,"sep":1317.3,"oct":1552.9,"nov":2024.0,"dec":2593.0},{"运营中心":"辽宁","total":4202.6,"aug":684.9,"sep":805.6,"oct":874.3,"nov":771.9,"dec":1066.0},{"运营中心":"山西","total":5974.9,"aug":883.6,"sep":1161.4,"oct":1266.0,"nov":1182.4,"dec":1481.5}];
+var BAODI_REPS=[{"运营中心":"河北","销售代表":"刘欢","区域":"冀西（含河北家装）","total":2145.3,"aug":348.0,"sep":450.2,"oct":410.3,"nov":459.5,"dec":477.3},{"运营中心":"河北","销售代表":"周尚智","区域":"冀南","total":1705.8,"aug":243.7,"sep":326.1,"oct":268.4,"nov":377.8,"dec":489.7},{"运营中心":"河北","销售代表":"刘均","区域":"冀东","total":849.3,"aug":146.8,"sep":185.3,"oct":230.1,"nov":139.0,"dec":148.1},{"运营中心":"河北","销售代表":"陈辉","区域":"冀北","total":659.6,"aug":138.1,"sep":131.0,"oct":103.0,"nov":114.0,"dec":173.4},{"运营中心":"河北","销售代表":"聂士朝","区域":"河北优选","total":1661.3,"aug":196.5,"sep":421.7,"oct":247.4,"nov":231.8,"dec":563.8},{"运营中心":"河南","销售代表":"张健","区域":"洛三","total":800.2,"aug":120.5,"sep":140.1,"oct":177.3,"nov":169.7,"dec":192.6},{"运营中心":"河南","销售代表":"龚运恒","区域":"漯周","total":762.0,"aug":107.8,"sep":114.2,"oct":148.7,"nov":230.7,"dec":160.5},{"运营中心":"河南","销售代表":"袁雄兆","区域":"新焦","total":706.7,"aug":110.1,"sep":170.9,"oct":109.2,"nov":160.8,"dec":155.7},{"运营中心":"河南","销售代表":"郭平","区域":"驻信","total":1053.1,"aug":211.2,"sep":207.8,"oct":222.7,"nov":216.6,"dec":194.8},{"运营中心":"河南","销售代表":"于晓宁","区域":"郑开","total":1011.1,"aug":124.6,"sep":357.0,"oct":153.9,"nov":206.9,"dec":168.6},{"运营中心":"河南","销售代表":"刘长春","区域":"许商","total":599.0,"aug":101.6,"sep":99.6,"oct":117.6,"nov":120.7,"dec":159.5},{"运营中心":"河南","销售代表":"崔智慧","区域":"南平","total":797.6,"aug":240.7,"sep":182.0,"oct":127.0,"nov":139.5,"dec":108.4},{"运营中心":"河南","销售代表":"葛佳琪","区域":"鹤安濮","total":510.3,"aug":92.8,"sep":97.1,"oct":118.4,"nov":84.6,"dec":117.6},{"运营中心":"河南","销售代表":"龚海峰","区域":"河南工程","total":1405.4,"aug":330.6,"sep":238.3,"oct":187.2,"nov":365.4,"dec":283.9},{"运营中心":"河南","销售代表":"徐华斌","区域":"豫北家装","total":1473.4,"aug":262.6,"sep":322.9,"oct":276.2,"nov":225.5,"dec":386.1},{"运营中心":"河南","销售代表":"李信","区域":"豫南家装","total":1457.7,"aug":264.0,"sep":283.0,"oct":302.5,"nov":265.2,"dec":343.0},{"运营中心":"黑吉","销售代表":"朱殿卿","区域":"黑龙江零售","total":1157.5,"aug":94.3,"sep":176.8,"oct":199.5,"nov":213.8,"dec":473.1},{"运营中心":"黑吉","销售代表":"范卫涛","区域":"吉林零售","total":474.2,"aug":69.7,"sep":90.0,"oct":71.6,"nov":94.3,"dec":148.5},{"运营中心":"黑吉","销售代表":"李铁朋","区域":"黑吉优选","total":594.7,"aug":125.7,"sep":117.2,"oct":91.2,"nov":119.2,"dec":141.4},{"运营中心":"黑吉","销售代表":"范卫涛","区域":"黑吉工程","total":419.2,"aug":53.7,"sep":83.4,"oct":128.9,"nov":91.0,"dec":62.2},{"运营中心":"黑吉","销售代表":"李宏伟","区域":"黑吉家装","total":879.5,"aug":147.3,"sep":202.9,"oct":195.3,"nov":113.8,"dec":220.2},{"运营中心":"辽宁","销售代表":"马军","区域":"辽东","total":1746.3,"aug":309.8,"sep":350.4,"oct":346.6,"nov":360.6,"dec":378.8},{"运营中心":"辽宁","销售代表":"焦清华","区域":"辽西蒙中","total":822.8,"aug":146.2,"sep":182.1,"oct":198.0,"nov":121.8,"dec":174.6},{"运营中心":"辽宁","销售代表":"王彤博","区域":"辽南","total":859.6,"aug":127.4,"sep":166.6,"oct":159.1,"nov":164.3,"dec":242.1},{"运营中心":"辽宁","销售代表":"焦清华","区域":"辽宁优选","total":774.0,"aug":101.5,"sep":106.4,"oct":170.6,"nov":125.1,"dec":270.5},{"运营中心":"山西","销售代表":"吴康生","区域":"晋中北（含山西工程）","total":1427.8,"aug":254.7,"sep":291.5,"oct":250.6,"nov":279.7,"dec":351.3},{"运营中心":"山西","销售代表":"吴宏伟","区域":"晋南（含家装）","total":1523.0,"aug":218.5,"sep":259.9,"oct":348.2,"nov":326.1,"dec":370.3},{"运营中心":"山西","销售代表":"胡德龙","区域":"大同长治（含家装）","total":1247.4,"aug":199.6,"sep":221.3,"oct":319.9,"nov":254.2,"dec":252.3},{"运营中心":"山西","销售代表":"李琰炳","区域":"蒙西","total":532.3,"aug":65.9,"sep":118.8,"oct":58.4,"nov":100.0,"dec":189.2},{"运营中心":"山西","销售代表":"刘志武","区域":"山西优选","total":1244.5,"aug":144.9,"sep":269.9,"oct":288.9,"nov":222.5,"dec":318.4},{"运营中心":"京津","销售代表":"王思凯","区域":"北京零售","total":4639.3,"aug":727.2,"sep":559.8,"oct":875.0,"nov":1065.8,"dec":1411.4},{"运营中心":"京津","销售代表":"靳宝","区域":"天津零售","total":863.6,"aug":127.8,"sep":146.9,"oct":131.3,"nov":225.0,"dec":232.6},{"运营中心":"京津","销售代表":"王思凯","区域":"京津优选","total":317.5,"aug":78.7,"sep":36.9,"oct":42.7,"nov":55.8,"dec":103.4},{"运营中心":"京津","销售代表":"梁高谦","区域":"京津工程","total":1621.0,"aug":517.1,"sep":209.8,"oct":225.0,"nov":349.3,"dec":319.8},{"运营中心":"京津","销售代表":"朱俊岭","区域":"京津家装","total":1858.3,"aug":361.6,"sep":363.9,"oct":278.9,"nov":328.1,"dec":525.8}];
+
+function getCumulativeTask(row,monthNum){
+  var keys=["aug","sep","oct","nov","dec"];
+  var sum=0;
+  for(var i=0;i<monthNum-7;i++){
+    if(i<keys.length)sum+=row[keys[i]]||0;
+  }
+  return Math.round(sum*10)/10;
+}
+
+function getRemainingDays(){
+  var now=new Date();
+  var year=now.getFullYear(),month=now.getMonth();
+  var daysInMonth=new Date(year,month+1,0).getDate();
+  var today=now.getDate();
+  return daysInMonth-today;
+}
+
+function renderBaodiView(){
+  var now=new Date();
+  var monthNum=now.getMonth()+1;
+  var monthNames={8:"8月",9:"9月",10:"10月",11:"11月",12:"12月"};
+  var monthName=monthNames[monthNum]||monthNum+"月";
+  var remaining=getRemainingDays();
+  var dailyDenom=remaining-2;
+  if(dailyDenom<1)dailyDenom=1;
+
+  // === Compute overall progress ===
+  var opsData0=getOpsData().filter(function(r){return r["运营中心"]&&r["运营中心"]!=="合计"&&r["名称"]!=="合计"});
+  var totAch0=0;
+  opsData0.forEach(function(r){totAch0+=(r["已发货"]||0)});
+  var totTask0=BAODI_OPS.reduce(function(s,t){return s+getCumulativeTask(t,monthNum)},0);
+  var totBonus0=Math.round(totTask0*1.1*10)/10;
+  var overallPct=totBonus0>0?Math.round(totAch0/totBonus0*100):0;
+  var overallColor=overallPct>=100?'#2E7D32':overallPct>=50?'#FF8F00':'#D32F2F';
+  var dataDate=snapshotDate||'-';
+  var uploadTimeStr='-';
+  if(cloudUploadedAt){
+    var ud=new Date(cloudUploadedAt);
+    var hh=String(ud.getHours()).padStart(2,"0");
+    var mm=String(ud.getMinutes()).padStart(2,"0");
+    uploadTimeStr=ud.getFullYear()+"-"+String(ud.getMonth()+1).padStart(2,"0")+"-"+String(ud.getDate()).padStart(2,"0")+" "+hh+":"+mm;
+  }
+
+  // Hero header - all in one line
+  var html='<div class="baodi-hero">';
+  html+='<div class="baodi-seal">令</div>';
+  html+='<div class="baodi-title">军 令 状</div>';
+  html+='<div class="baodi-divider"></div>';
+  html+='<div class="baodi-sub">累积制 · 自8月1日起算</div>';
+  html+='<div class="baodi-divider"></div>';
+  html+='<div class="baodi-hero-info">数据日期 <b>'+dataDate+'</b></div>';
+  html+='<div class="baodi-divider"></div>';
+  html+='<div class="baodi-hero-info">更新时间 <b>'+uploadTimeStr+'</b></div>';
+  html+='<div class="baodi-divider"></div>';
+  html+='<div class="baodi-hero-info">剩余 <b>'+remaining+'</b> 天</div>';
+  html+='<div class="baodi-divider"></div>';
+  html+='<div class="baodi-hero-info">日均分母 <b>'+dailyDenom+'</b></div>';
+  html+='<div class="baodi-divider"></div>';
+  html+='<div class="baodi-hero-info">达成率 <b style="color:'+overallColor+'">'+overallPct+'%</b></div>';
+  html+='</div>';
+
+  // === Table 1: 运营中心 ===
+  var opsData=getOpsData().filter(function(r){return r["运营中心"]&&r["运营中心"]!=="合计"&&r["名称"]!=="合计"});
+  var opsAch={},opsDaily={};
+  opsData.forEach(function(r){
+    var oc=r["运营中心"];
+    if(!opsAch[oc])opsAch[oc]=0;
+    opsAch[oc]+=(r["已发货"]||0);
+    if(!opsDaily[oc])opsDaily[oc]=0;
+    opsDaily[oc]+=(r["当日开单"]||0);
+  });
+
+  var opsRows=BAODI_OPS.map(function(t){
+    var task=getCumulativeTask(t,monthNum);
+    var bonus=Math.round(task*1.1*10)/10;
+    var ach=Math.round((opsAch[t["运营中心"]]||0)*10)/10;
+    var dailyOrder=Math.round((opsDaily[t["运营中心"]]||0)*10)/10;
+    var gap=Math.round((bonus-ach)*10)/10;
+    var daily=dailyDenom>0?Math.round(gap/dailyDenom*10)/10:0;
+    var dailyGap=Math.round((daily-dailyOrder)*10)/10;
+    return{name:t["运营中心"],task:task,bonus:bonus,ach:ach,gap:gap,daily:daily,dailyOrder:dailyOrder,dailyGap:dailyGap};
+  });
+  var totTask=opsRows.reduce(function(s,r){return s+r.task},0);
+  var totBonus=opsRows.reduce(function(s,r){return s+r.bonus},0);
+  var totAch=opsRows.reduce(function(s,r){return s+r.ach},0);
+  var totDailyOrder=opsRows.reduce(function(s,r){return s+r.dailyOrder},0);
+  var totGap=Math.round((totBonus-totAch)*10)/10;
+  var totDaily=Math.round(totGap/dailyDenom*10)/10;
+  var totDailyGap=Math.round((totDaily-totDailyOrder)*10)/10;
+  opsRows.push({name:"北区合计",task:Math.round(totTask*10)/10,bonus:Math.round(totBonus*10)/10,ach:Math.round(totAch*10)/10,gap:totGap,daily:totDaily,dailyOrder:Math.round(totDailyOrder*10)/10,dailyGap:totDailyGap,isTotal:true});
+
+  html+='<div class="baodi-section">';
+  html+='<div class="baodi-section-title"><span class="dot"></span>运营中心</div>';
+  html+='<table class="baodi-table"><thead><tr>';
+  html+='<th>运营中心</th><th>淘汰线任务(万)</th><th>奖金拿满任务(万)</th><th>已达成(万)</th><th>达成率</th><th>缺口(万)</th><th>达标日均需开单(万)</th><th>当日开单(万)</th><th>当日缺口(万)</th>';
+  html+='</tr></thead><tbody>';
+  opsRows.forEach(function(r){
+    var cls=r.isTotal?' class="total-row"':'';
+    var gapCls=r.gap>0?'baodi-gap-pos':'baodi-gap-neg';
+    var dGapCls=r.dailyGap>0?'baodi-gap-pos':r.dailyGap<0?'baodi-gap-neg':'';
+    var pct=r.bonus>0?Math.round(r.ach/r.bonus*100):0;
+    var pctColor=pct>=100?'#2E7D32':pct>=50?'#FF8F00':'#D32F2F';
+    var flame=r.gap>0?'<span class="baodi-flame"></span>':'';
+    var barW=Math.min(100,pct);
+    html+='<tr'+cls+'>';
+    html+='<td class="dim">'+flame+r.name+'</td>';
+    html+='<td>'+r.task+'</td>';
+    html+='<td style="color:#E65100;font-weight:700">'+r.bonus+'</td>';
+    html+='<td>'+r.ach+'</td>';
+    html+='<td><span style="color:'+pctColor+';font-weight:800">'+pct+'%</span><div class="baodi-progress"><div class="baodi-progress-bar" style="width:'+barW+'%;background:'+pctColor+'"></div></div></td>';
+    html+='<td class="'+gapCls+'">'+(r.gap>0?"+":"")+r.gap+'</td>';
+    html+='<td class="baodi-daily-need">'+(r.daily>0?r.daily:'-')+'</td>';
+    html+='<td>'+r.dailyOrder+'</td>';
+    html+='<td class="'+dGapCls+'">'+(r.dailyGap!==0?(r.dailyGap>0?"+":"")+r.dailyGap:'-')+'</td>';
+    html+='</tr>';
+  });
+  html+='</tbody></table></div>';
+
+  // === Table 2: 区域经理 ===
+  var dealerData=getDealerData().filter(function(r){return r["名称"]!=="合计"&&r["编码"]&&!isExcludedDealer(r["名称"])});
+  var repAch={},repDaily={};
+  dealerData.forEach(function(r){
+    var rep=r["销售代表"]||"";
+    if(!repAch[rep])repAch[rep]=0;
+    repAch[rep]+=(r["已发货"]||0);
+    if(!repDaily[rep])repDaily[rep]=0;
+    repDaily[rep]+=(r["当日开单"]||0);
+  });
+
+  var repMap={};
+  BAODI_REPS.forEach(function(t){
+    var key=t["运营中心"]+"|"+t["销售代表"];
+    if(!repMap[key])repMap[key]={运营中心:t["运营中心"],销售代表:t["销售代表"],区域:[],task:0};
+    repMap[key].区域.push(t["区域"]);
+    repMap[key].task+=getCumulativeTask(t,monthNum);
+  });
+
+  var repRows=Object.keys(repMap).map(function(k){
+    var v=repMap[k];
+    var ach=Math.round((repAch[v["销售代表"]]||0)*10)/10;
+    var dailyOrder=Math.round((repDaily[v["销售代表"]]||0)*10)/10;
+    var task=Math.round(v.task*10)/10;
+    var bonus=Math.round(task*1.1*10)/10;
+    var gap=Math.round((bonus-ach)*10)/10;
+    var daily=dailyDenom>0?Math.round(gap/dailyDenom*10)/10:0;
+    var dailyGap=Math.round((daily-dailyOrder)*10)/10;
+    return{运营中心:v["运营中心"],销售代表:v["销售代表"],区域:v["区域"].join("、"),task:task,bonus:bonus,ach:ach,gap:gap,daily:daily,dailyOrder:dailyOrder,dailyGap:dailyGap};
+  }).sort(function(a,b){
+    if(a["运营中心"]!==b["运营中心"])return a["运营中心"].localeCompare(b["运营中心"]);
+    return b.bonus-a.bonus;
+  });
+
+  html+='<div class="baodi-section">';
+  html+='<div class="baodi-section-title"><span class="dot"></span>区域经理</div>';
+  html+='<table class="baodi-table"><thead><tr>';
+  html+='<th>运营中心</th><th>销售代表</th><th>区域</th><th>淘汰线任务(万)</th><th>奖金拿满任务(万)</th><th>已达成(万)</th><th>达成率</th><th>缺口(万)</th><th>达标日均需开单(万)</th><th>当日开单(万)</th><th>当日缺口(万)</th>';
+  html+='</tr></thead><tbody>';
+  repRows.forEach(function(r){
+    var gapCls=r.gap>0?'baodi-gap-pos':'baodi-gap-neg';
+    var dGapCls=r.dailyGap>0?'baodi-gap-pos':r.dailyGap<0?'baodi-gap-neg':'';
+    var pct=r.bonus>0?Math.round(r.ach/r.bonus*100):0;
+    var pctColor=pct>=100?'#2E7D32':pct>=50?'#FF8F00':'#D32F2F';
+    var flame=r.gap>0?'<span class="baodi-flame"></span>':'';
+    var barW=Math.min(100,pct);
+    html+='<tr>';
+    html+='<td class="dim">'+r["运营中心"]+'</td>';
+    html+='<td class="dim">'+flame+r["销售代表"]+'</td>';
+    html+='<td class="dim">'+r["区域"]+'</td>';
+    html+='<td>'+r.task+'</td>';
+    html+='<td style="color:#E65100;font-weight:700">'+r.bonus+'</td>';
+    html+='<td>'+r.ach+'</td>';
+    html+='<td><span style="color:'+pctColor+';font-weight:800">'+pct+'%</span><div class="baodi-progress"><div class="baodi-progress-bar" style="width:'+barW+'%;background:'+pctColor+'"></div></div></td>';
+    html+='<td class="'+gapCls+'">'+(r.gap>0?"+":"")+r.gap+'</td>';
+    html+='<td class="baodi-daily-need">'+(r.daily>0?r.daily:'-')+'</td>';
+    html+='<td>'+r.dailyOrder+'</td>';
+    html+='<td class="'+dGapCls+'">'+(r.dailyGap!==0?(r.dailyGap>0?"+":"")+r.dailyGap:'-')+'</td>';
+    html+='</tr>';
+  });
+  html+='</tbody></table></div>';
+
+  document.getElementById("content").innerHTML=html;
+}
+
 // ===== View Switching =====
 function switchView(view){
   document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active")});
@@ -765,6 +1074,7 @@ function switchView(view){
   else if(view==="ops")renderOpsView();
   else if(view==="channel")renderChannelView();
   else if(view==="dealer")renderDealerView();
+  else if(view==="baodi")renderBaodiView();
 }
 
 // ===== Excel Upload =====
@@ -780,38 +1090,118 @@ function processFile(file){
     try{
       var data=new Uint8Array(e.target.result);
       var wb=XLSX.read(data,{type:"array"});
-      var sheetRegion=null,sheetOps=null,sheetDealer=null;
-      wb.SheetNames.forEach(function(sn){
-        if(sn.indexOf("大区")>=0&&sn.indexOf("上")>=0)sheetRegion=sn;
-        else if(sn.indexOf("运营中心")>=0&&sn.indexOf("上")>=0&&sn.indexOf("全渠道")<0)sheetOps=sn;
-        if(sn.indexOf("经销商")>=0&&(sn.indexOf("AW")>=0||sn.indexOf("上")>=0))sheetDealer=sn;
-      });
-      if(!sheetRegion){showUploadStatus("error","\u274C 未找到大区工作表");return}
-      var jsonRegion=XLSX.utils.sheet_to_json(wb.Sheets[sheetRegion],{header:1,defval:null});
-      var rowsRegion=parseSummarySheet(jsonRegion,"大区");
-      var rowsOps=sheetOps?parseSummarySheet(XLSX.utils.sheet_to_json(wb.Sheets[sheetOps],{header:1,defval:null}),"运营中心"):[];
-      var rowsDealer=sheetDealer?parseDealerSheet(XLSX.utils.sheet_to_json(wb.Sheets[sheetDealer],{header:1,defval:null})):[];
-      // Filter to 北区
-      rowsRegion=rowsRegion.filter(function(r){return r["大区"]===REGION_NAME||r["名称"]==="合计"});
-      rowsOps=rowsOps.filter(function(r){return r["大区"]===REGION_NAME||r["名称"]==="合计"});
-      if(rowsDealer.length>0)rowsDealer=rowsDealer.filter(function(r){return r["大区"]===REGION_NAME||r["名称"]==="合计"});
+      var isV2=wb.SheetNames.some(function(sn){return sn.indexOf("一级部门")>=0});
+      var rowsRegion,rowsOps,rowsDealer;
+      if(isV2){
+        var res=parseV2Format(wb);
+        rowsRegion=res.region;
+        rowsOps=res.ops;
+        rowsDealer=res.dealer;
+      }else{
+        var sheetRegion=null,sheetOps=null,sheetDealer=null;
+        wb.SheetNames.forEach(function(sn){
+          if(sn.indexOf("大区")>=0&&sn.indexOf("上")>=0)sheetRegion=sn;
+          else if(sn.indexOf("运营中心")>=0&&sn.indexOf("上")>=0&&sn.indexOf("全渠道")<0)sheetOps=sn;
+          if(sn.indexOf("经销商")>=0&&(sn.indexOf("AW")>=0||sn.indexOf("上")>=0))sheetDealer=sn;
+        });
+        if(!sheetRegion){showUploadStatus("error","\u274C 未找到大区工作表");return}
+        rowsRegion=parseSummarySheet(XLSX.utils.sheet_to_json(wb.Sheets[sheetRegion],{header:1,defval:null}),"大区");
+        rowsOps=sheetOps?parseSummarySheet(XLSX.utils.sheet_to_json(wb.Sheets[sheetOps],{header:1,defval:null}),"运营中心"):[];
+        rowsDealer=sheetDealer?parseDealerSheet(XLSX.utils.sheet_to_json(wb.Sheets[sheetDealer],{header:1,defval:null})):[];
+        rowsRegion=rowsRegion.filter(function(r){return r["大区"]===REGION_NAME||r["名称"]==="合计"});
+        rowsOps=rowsOps.filter(function(r){return r["大区"]===REGION_NAME||r["名称"]==="合计"});
+        if(rowsDealer.length>0)rowsDealer=rowsDealer.filter(function(r){return r["大区"]===REGION_NAME||r["名称"]==="合计"});
+      }
       DATA_BY_REGION=rowsRegion;
       DATA_BY_OPS=rowsOps.length>0?rowsOps:rowsRegion;
-      if(rowsDealer.length>0){
-        ALL_DATA=rowsDealer;
-      }
+      if(rowsDealer.length>0)ALL_DATA=rowsDealer;
       ALL_REGIONS=["北区"];
       ALL_CHANNELS=sortedUniq(DATA_BY_REGION.map(function(r){return r["渠道"]}).filter(function(v){return v&&v!=="合计"}));
       ALL_OPS=sortedUniq(DATA_BY_OPS.map(function(r){return r["运营中心"]}).filter(function(v){return v&&v!=="合计"&&v!=="-"&&v!=="/"&&v!=="小计"}));
       DEALERS=sortedUniq(ALL_DATA.filter(function(r){return r["名称"]!=="合计"&&r["编码"]&&!isExcludedDealer(r["名称"])}).map(function(r){return r["名称"]}));
       showUploadStatus("success","\u2705 成功导入北部战区数据: 大区表 "+rowsRegion.length+" 行, 运营中心表 "+rowsOps.length+" 行"+(rowsDealer.length>0?", 经销商 "+rowsDealer.length+" 行":""));
-      saveToCloud({region:rowsRegion,ops:rowsOps,dealer:rowsDealer},file.name,snapshotDate);
+      var today=new Date();
+      var dateStr=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+      updateDataDate(dateStr);
+      saveToCloud({region:rowsRegion,ops:rowsOps,dealer:rowsDealer},file.name,dateStr);
       var activeTab=document.querySelector(".tab.active");
       if(activeTab)switchView(activeTab.dataset.view);
     }catch(err){showUploadStatus("error","\u274C 解析失败: "+err.message)}
   };
   reader.readAsArrayBuffer(file);
   showUploadStatus("info","\u23F3 正在解析 "+file.name+"...");
+}
+
+function parseV2Format(wb){
+  var TARGET="北部战区";
+  var rowsRegion=[],rowsOps=[],rowsDealer=[];
+  var northTotal={已发货:0,当日开单:0,去年同期:0,本年发货:0,去年发货:0};
+
+  // === 一级部门 sheet: 战区×渠道 ===
+  var sn1=wb.SheetNames.find(function(s){return s.indexOf("一级部门")>=0});
+  if(sn1){
+    var json1=XLSX.utils.sheet_to_json(wb.Sheets[sn1],{header:1,defval:null});
+    for(var i=3;i<json1.length;i++){
+      var r=json1[i];if(!r||!r[0])continue;
+      var dept=String(r[2]||"").trim();
+      if(dept===TARGET){
+        var ch=String(r[1]||"").trim();
+        rowsRegion.push({大区:"北区",渠道:ch,名称:TARGET,
+          已发货:num(r[6])+num(r[8]),当日开单:num(r[4]),去年同期:num(r[12]),本年发货:num(r[16]),去年发货:num(r[19])});
+        northTotal.已发货+=num(r[6])+num(r[8]);northTotal.当日开单+=num(r[4]);
+        northTotal.去年同期+=num(r[12]);northTotal.本年发货+=num(r[16]);northTotal.去年发货+=num(r[19]);
+      }
+    }
+  }
+  rowsRegion.unshift({大区:"北区",渠道:"合计",名称:"合计",
+    已发货:Math.round(northTotal.已发货*100)/100,当日开单:Math.round(northTotal.当日开单*100)/100,
+    去年同期:Math.round(northTotal.去年同期*100)/100,
+    本年发货:Math.round(northTotal.本年发货*100)/100,去年发货:Math.round(northTotal.去年发货*100)/100});
+
+  // === 二级部门 sheet: 运营中心×渠道 ===
+  var sn2=wb.SheetNames.find(function(s){return s.indexOf("二级部门")>=0});
+  if(sn2){
+    var json2=XLSX.utils.sheet_to_json(wb.Sheets[sn2],{header:1,defval:null});
+    for(var i=3;i<json2.length;i++){
+      var r=json2[i];if(!r||!r[0])continue;
+      var dept=String(r[2]||"").trim();
+      var oc=String(r[3]||"").trim();
+      if(dept===TARGET&&oc&&oc!=="小计"&&oc!=="None"){
+        var ocName=oc.replace("运营中心","");
+        rowsOps.push({大区:"北区",渠道:String(r[1]||"").trim(),运营中心:ocName,名称:ocName,
+          已发货:num(r[7])+num(r[9]),当日开单:num(r[5]),去年同期:num(r[13]),本年发货:num(r[17]),去年发货:num(r[20])});
+      }
+    }
+  }
+  rowsOps.push({大区:"北区",渠道:"合计",运营中心:"合计",名称:"合计",
+    已发货:Math.round(northTotal.已发货*100)/100,当日开单:Math.round(northTotal.当日开单*100)/100,
+    去年同期:Math.round(northTotal.去年同期*100)/100,
+    本年发货:Math.round(northTotal.本年发货*100)/100,去年发货:Math.round(northTotal.去年发货*100)/100});
+
+  // === 经销商 sheet ===
+  var sn4=wb.SheetNames.find(function(s){return s.indexOf("经销商")>=0&&s.indexOf("AW")>=0});
+  if(!sn4)sn4=wb.SheetNames.find(function(s){return s.indexOf("经销商")>=0});
+  if(sn4){
+    var json4=XLSX.utils.sheet_to_json(wb.Sheets[sn4],{header:1,defval:null});
+    for(var i=3;i<json4.length;i++){
+      var r=json4[i];if(!r||!r[0])continue;
+      var dept=String(r[2]||"").trim();
+      var code=String(r[5]||"").trim();
+      var name=String(r[6]||"").trim();
+      if(dept===TARGET&&code&&code!=="小计"&&code!=="None"&&code!==""){
+        var ocName=String(r[3]||"").trim().replace("运营中心","");
+        var salesRep=String(r[4]||"").trim();
+        name=mergeDealerName(name);
+        if(!isExcludedDealer(name)){
+          rowsDealer.push({大区:"北区",渠道:String(r[1]||"").trim(),运营中心:ocName,
+            销售代表:salesRep,
+            区域:ocName+String(r[1]||"").trim(),编码:code,名称:name,
+            已发货:num(r[10])+num(r[12]),当日开单:num(r[8]),去年同期:num(r[16]),本年发货:num(r[20]),去年发货:num(r[23])});
+        }
+      }
+    }
+  }
+  return{region:rowsRegion,ops:rowsOps,dealer:rowsDealer};
 }
 
 function parseDealerSheet(json){
@@ -892,6 +1282,7 @@ function saveToCloud(payload,fileName,dataDate){
     .catch(function(e){console.warn("[Cloud] save error",e)})
 }
 function loadFromCloud(){
+  var old=document.querySelector(".upload-status");if(old)old.remove();
   showUploadStatus("info","\u23F3 正在从云端加载数据...");
   fetch("/api/data")
     .then(function(r){return r.json()})
@@ -907,6 +1298,9 @@ function loadFromCloud(){
         ALL_CHANNELS=sortedUniq(DATA_BY_REGION.map(function(r){return r["渠道"]}).filter(function(v){return v&&v!=="合计"}));
         ALL_OPS=sortedUniq(DATA_BY_OPS.map(function(r){return r["运营中心"]}).filter(function(v){return v&&v!=="合计"&&v!=="-"&&v!=="/"&&v!=="小计"}));
         DEALERS=sortedUniq(ALL_DATA.filter(function(r){return r["名称"]!=="合计"&&r["编码"]&&!isExcludedDealer(r["名称"])}).map(function(r){return r["名称"]}));
+        if(d.data.uploadedAt){
+          cloudUploadedAt=d.data.uploadedAt;
+        }
         if(d.data.dataDate){
           updateDataDate(d.data.dataDate);
         }else if(d.data.uploadedAt){
@@ -937,6 +1331,7 @@ function showUploadStatus(type,msg){
   var div=document.createElement("div");div.className="upload-status "+type;div.textContent=msg;
   document.querySelector(".content").insertBefore(div,document.querySelector(".content").firstChild);
   if(type==="success")setTimeout(function(){div.remove()},5000);
+  if(type==="error")setTimeout(function(){div.remove()},10000);
 }
 function resetData(){clearCloudData();try{localStorage.removeItem("auth_ok")}catch(e){};setTimeout(function(){location.reload()},500)}
 function takeScreenshot(){
@@ -1045,7 +1440,7 @@ try{
 }catch(e){}
 
 // ===== Auth =====
-var AUTH_PASSWORD="QQ2026";
+var AUTH_PASSWORD="2026";
 function checkAuth(){
   var input=document.getElementById("authPassword").value;
   if(input===AUTH_PASSWORD){
