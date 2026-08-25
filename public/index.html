@@ -302,6 +302,9 @@ td.neg{color:var(--red)!important;font-weight:700}
 .baodi-progress-bar{height:100%;border-radius:3px;transition:width .3s}
 .baodi-flame{display:inline-block;width:6px;height:6px;border-radius:50%;background:#FF6F00;animation:baodi-flame 1.2s ease-in-out infinite;vertical-align:middle;margin-right:3px}
 .baodi-divider{flex-shrink:0;width:1px;height:18px;background:linear-gradient(180deg,transparent,rgba(255,193,7,.5),transparent)}
+.sortable-th{cursor:pointer;user-select:none;transition:background .15s}
+.sortable-th:hover{background:rgba(255,193,7,.15)}
+.sortable-th:active{background:rgba(255,193,7,.3)}
 </style>
 </head>
 <body>
@@ -899,6 +902,103 @@ function getRemainingDays(){
   return daysInMonth-today;
 }
 
+var baodiOpsRows=[];
+var baodiRepRows=[];
+var baodiSortState={ops:{key:null,dir:1},rep:{key:null,dir:1}};
+
+function fmtBaodiGap(v){
+  if(v===0||isNaN(v))return '-';
+  if(v<0)return '超'+Math.abs(v);
+  return ''+v;
+}
+function fmtBaodiPct(pct){
+  if(pct>=100)return '满额奖金到手';
+  return pct+'%';
+}
+
+function renderOpsRows(rows){
+  var html='';
+  rows.forEach(function(r){
+    var cls=r.isTotal?' class="total-row"':'';
+    var gapCls=r.gap>0?'baodi-gap-pos':'baodi-gap-neg';
+    var dGapCls=r.dailyGap>0?'baodi-gap-pos':r.dailyGap<0?'baodi-gap-neg':'';
+    var pct=r.bonus>0?Math.round(r.ach/r.bonus*100):0;
+    var pctColor=pct>=100?'#2E7D32':pct>=50?'#FF8F00':'#D32F2F';
+    var flame=r.gap>0?'<span class="baodi-flame"></span>':'';
+    var barW=Math.min(100,pct);
+    html+='<tr'+cls+'>';
+    html+='<td class="dim">'+flame+r.name+'</td>';
+    html+='<td>'+r.task+'</td>';
+    html+='<td style="color:#E65100;font-weight:700">'+r.bonus+'</td>';
+    html+='<td>'+r.ach+'</td>';
+    html+='<td><span style="color:'+pctColor+';font-weight:800">'+fmtBaodiPct(pct)+'</span><div class="baodi-progress"><div class="baodi-progress-bar" style="width:'+barW+'%;background:'+pctColor+'"></div></div></td>';
+    html+='<td class="'+gapCls+'">'+fmtBaodiGap(r.gap)+'</td>';
+    html+='<td class="baodi-daily-need">'+(r.daily>0?r.daily:'-')+'</td>';
+    html+='<td>'+r.dailyOrder+'</td>';
+    html+='<td class="'+dGapCls+'">'+fmtBaodiGap(r.dailyGap)+'</td>';
+    html+='</tr>';
+  });
+  return html;
+}
+
+function renderRepRows(rows){
+  var html='';
+  rows.forEach(function(r){
+    var gapCls=r.gap>0?'baodi-gap-pos':'baodi-gap-neg';
+    var dGapCls=r.dailyGap>0?'baodi-gap-pos':r.dailyGap<0?'baodi-gap-neg':'';
+    var pct=r.bonus>0?Math.round(r.ach/r.bonus*100):0;
+    var pctColor=pct>=100?'#2E7D32':pct>=50?'#FF8F00':'#D32F2F';
+    var flame=r.gap>0?'<span class="baodi-flame"></span>':'';
+    var barW=Math.min(100,pct);
+    html+='<tr>';
+    html+='<td class="dim">'+r["运营中心"]+'</td>';
+    html+='<td class="dim">'+flame+r["销售代表"]+'</td>';
+    html+='<td class="dim">'+r["区域"]+'</td>';
+    html+='<td>'+r.task+'</td>';
+    html+='<td style="color:#E65100;font-weight:700">'+r.bonus+'</td>';
+    html+='<td>'+r.ach+'</td>';
+    html+='<td><span style="color:'+pctColor+';font-weight:800">'+fmtBaodiPct(pct)+'</span><div class="baodi-progress"><div class="baodi-progress-bar" style="width:'+barW+'%;background:'+pctColor+'"></div></div></td>';
+    html+='<td class="'+gapCls+'">'+fmtBaodiGap(r.gap)+'</td>';
+    html+='<td class="baodi-daily-need">'+(r.daily>0?r.daily:'-')+'</td>';
+    html+='<td>'+r.dailyOrder+'</td>';
+    html+='<td class="'+dGapCls+'">'+fmtBaodiGap(r.dailyGap)+'</td>';
+    html+='</tr>';
+  });
+  return html;
+}
+
+function baodiSort(table,key){
+  var state=baodiSortState[table];
+  if(state.key===key){
+    state.dir=-state.dir;
+  }else{
+    state.key=key;
+    state.dir=1;
+  }
+  var rows=table==='ops'?baodiOpsRows.slice():baodiRepRows.slice();
+  var totalRow=rows.filter(function(r){return r.isTotal});
+  var dataRows=rows.filter(function(r){return !r.isTotal});
+  dataRows.sort(function(a,b){
+    var va=a[key],vb=b[key];
+    if(key==='name'||key==='运营中心'||key==='销售代表'||key==='区域'){
+      return String(va||'').localeCompare(String(vb||''))*state.dir;
+    }
+    if(key==='pct'){
+      va=(a.bonus>0?a.ach/a.bonus*100:0);
+      vb=(b.bonus>0?b.ach/b.bonus*100:0);
+    }
+    return ((va||0)-(vb||0))*state.dir;
+  });
+  var sorted=totalRow.length>0?dataRows.concat(totalRow):dataRows;
+  if(table==='ops'){
+    baodiOpsRows=sorted;
+    document.getElementById("baodiOpsBody").innerHTML=renderOpsRows(sorted);
+  }else{
+    baodiRepRows=sorted;
+    document.getElementById("baodiRepBody").innerHTML=renderRepRows(sorted);
+  }
+}
+
 function renderBaodiView(){
   var now=new Date();
   var monthNum=now.getMonth()+1;
@@ -940,7 +1040,7 @@ function renderBaodiView(){
   html+='<div class="baodi-divider"></div>';
   html+='<div class="baodi-hero-info">日均分母 <b>'+dailyDenom+'</b></div>';
   html+='<div class="baodi-divider"></div>';
-  html+='<div class="baodi-hero-info">达成率 <b style="color:'+overallColor+'">'+overallPct+'%</b></div>';
+  html+='<div class="baodi-hero-info">达成率 <b style="color:'+overallColor+'">'+fmtBaodiPct(overallPct)+'</b></div>';
   html+='</div>';
 
   // === Table 1: 运营中心 ===
@@ -972,32 +1072,22 @@ function renderBaodiView(){
   var totDaily=Math.round(totGap/dailyDenom*10)/10;
   var totDailyGap=Math.round((totDaily-totDailyOrder)*10)/10;
   opsRows.push({name:"北区合计",task:Math.round(totTask*10)/10,bonus:Math.round(totBonus*10)/10,ach:Math.round(totAch*10)/10,gap:totGap,daily:totDaily,dailyOrder:Math.round(totDailyOrder*10)/10,dailyGap:totDailyGap,isTotal:true});
+  baodiOpsRows=opsRows;
 
   html+='<div class="baodi-section">';
   html+='<div class="baodi-section-title"><span class="dot"></span>运营中心</div>';
   html+='<table class="baodi-table"><thead><tr>';
-  html+='<th>运营中心</th><th>淘汰线任务(万)</th><th>奖金拿满任务(万)</th><th>已达成(万)</th><th>达成率</th><th>缺口(万)</th><th>达标日均需开单(万)</th><th>当日开单(万)</th><th>当日缺口(万)</th>';
-  html+='</tr></thead><tbody>';
-  opsRows.forEach(function(r){
-    var cls=r.isTotal?' class="total-row"':'';
-    var gapCls=r.gap>0?'baodi-gap-pos':'baodi-gap-neg';
-    var dGapCls=r.dailyGap>0?'baodi-gap-pos':r.dailyGap<0?'baodi-gap-neg':'';
-    var pct=r.bonus>0?Math.round(r.ach/r.bonus*100):0;
-    var pctColor=pct>=100?'#2E7D32':pct>=50?'#FF8F00':'#D32F2F';
-    var flame=r.gap>0?'<span class="baodi-flame"></span>':'';
-    var barW=Math.min(100,pct);
-    html+='<tr'+cls+'>';
-    html+='<td class="dim">'+flame+r.name+'</td>';
-    html+='<td>'+r.task+'</td>';
-    html+='<td style="color:#E65100;font-weight:700">'+r.bonus+'</td>';
-    html+='<td>'+r.ach+'</td>';
-    html+='<td><span style="color:'+pctColor+';font-weight:800">'+pct+'%</span><div class="baodi-progress"><div class="baodi-progress-bar" style="width:'+barW+'%;background:'+pctColor+'"></div></div></td>';
-    html+='<td class="'+gapCls+'">'+(r.gap>0?"+":"")+r.gap+'</td>';
-    html+='<td class="baodi-daily-need">'+(r.daily>0?r.daily:'-')+'</td>';
-    html+='<td>'+r.dailyOrder+'</td>';
-    html+='<td class="'+dGapCls+'">'+(r.dailyGap!==0?(r.dailyGap>0?"+":"")+r.dailyGap:'-')+'</td>';
-    html+='</tr>';
-  });
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'name\')">运营中心</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'task\')">淘汰线任务(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'bonus\')">奖金拿满任务(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'ach\')">已达成(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'pct\')">达成率</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'gap\')">缺口(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'daily\')">达标日均需开单(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'dailyOrder\')">当日开单(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'ops\',\'dailyGap\')">当日缺口(万)</th>';
+  html+='</tr></thead><tbody id="baodiOpsBody">';
+  html+=renderOpsRows(opsRows);
   html+='</tbody></table></div>';
 
   // === Table 2: 区域经理 ===
@@ -1033,33 +1123,24 @@ function renderBaodiView(){
     if(a["运营中心"]!==b["运营中心"])return a["运营中心"].localeCompare(b["运营中心"]);
     return b.bonus-a.bonus;
   });
+  baodiRepRows=repRows;
 
   html+='<div class="baodi-section">';
   html+='<div class="baodi-section-title"><span class="dot"></span>区域经理</div>';
   html+='<table class="baodi-table"><thead><tr>';
-  html+='<th>运营中心</th><th>销售代表</th><th>区域</th><th>淘汰线任务(万)</th><th>奖金拿满任务(万)</th><th>已达成(万)</th><th>达成率</th><th>缺口(万)</th><th>达标日均需开单(万)</th><th>当日开单(万)</th><th>当日缺口(万)</th>';
-  html+='</tr></thead><tbody>';
-  repRows.forEach(function(r){
-    var gapCls=r.gap>0?'baodi-gap-pos':'baodi-gap-neg';
-    var dGapCls=r.dailyGap>0?'baodi-gap-pos':r.dailyGap<0?'baodi-gap-neg':'';
-    var pct=r.bonus>0?Math.round(r.ach/r.bonus*100):0;
-    var pctColor=pct>=100?'#2E7D32':pct>=50?'#FF8F00':'#D32F2F';
-    var flame=r.gap>0?'<span class="baodi-flame"></span>':'';
-    var barW=Math.min(100,pct);
-    html+='<tr>';
-    html+='<td class="dim">'+r["运营中心"]+'</td>';
-    html+='<td class="dim">'+flame+r["销售代表"]+'</td>';
-    html+='<td class="dim">'+r["区域"]+'</td>';
-    html+='<td>'+r.task+'</td>';
-    html+='<td style="color:#E65100;font-weight:700">'+r.bonus+'</td>';
-    html+='<td>'+r.ach+'</td>';
-    html+='<td><span style="color:'+pctColor+';font-weight:800">'+pct+'%</span><div class="baodi-progress"><div class="baodi-progress-bar" style="width:'+barW+'%;background:'+pctColor+'"></div></div></td>';
-    html+='<td class="'+gapCls+'">'+(r.gap>0?"+":"")+r.gap+'</td>';
-    html+='<td class="baodi-daily-need">'+(r.daily>0?r.daily:'-')+'</td>';
-    html+='<td>'+r.dailyOrder+'</td>';
-    html+='<td class="'+dGapCls+'">'+(r.dailyGap!==0?(r.dailyGap>0?"+":"")+r.dailyGap:'-')+'</td>';
-    html+='</tr>';
-  });
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'运营中心\')">运营中心</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'销售代表\')">销售代表</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'区域\')">区域</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'task\')">淘汰线任务(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'bonus\')">奖金拿满任务(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'ach\')">已达成(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'pct\')">达成率</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'gap\')">缺口(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'daily\')">达标日均需开单(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'dailyOrder\')">当日开单(万)</th>';
+  html+='<th class="sortable-th" onclick="baodiSort(\'rep\',\'dailyGap\')">当日缺口(万)</th>';
+  html+='</tr></thead><tbody id="baodiRepBody">';
+  html+=renderRepRows(repRows);
   html+='</tbody></table></div>';
 
   document.getElementById("content").innerHTML=html;
